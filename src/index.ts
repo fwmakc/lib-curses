@@ -10,6 +10,7 @@ import { loop } from './helpers/loop.helper';
 import { position } from './helpers/position.helper';
 import { print } from './helpers/print.helper';
 import { showCursor } from './helpers/show_сursor.helper';
+import { wait } from './helpers/wait.helper';
 
 export {
   addch,
@@ -24,4 +25,5 @@ export {
   position,
   print,
   showCursor,
+  wait,
 };
