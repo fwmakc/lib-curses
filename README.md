@@ -90,13 +90,15 @@ curses.print('Hello world');
 
 Отличие от **input** только в том, что ввод ожидает нажатия любой клавиши и возвращает ее значение.
 
-**async loop(callback: () => Promise<boolean>): Promise<void>**
+**async loop(callback: () => Promise<boolean>, milliseconds = 0): Promise<void>**
 
 Запускает цикл.
 
 В цикле вызывается функция callback, пока она возвращает true.
 
 Цикл завершится, когда функция callback вернет false.
+
+Вторым необязательным аргументом можно передать задержку между итерациями.
 
 **position(x = -1, y = -1): void**
 
@@ -456,15 +458,6 @@ await loop(...);
 await loop(...);
 ```
 
-Можно сделать задержку выполнения функции main:
-
-```
-loop(async () => {
-  await wait(1000);
-  return await main();
-});
-```
-
 Можно сделать обработку ошибок:
 
 ```
@@ -472,6 +465,28 @@ loop(() => main().catch((e) => {
   console.error(e);
   return false;
 }));
+```
+
+# Пример паузы в цикле
+
+Самый простой и правильный способ - задать паузу вторым аргументом:
+
+```
+loop(main, 1000)
+```
+
+Можно также добавлять задержки внутри кода исполняемой логики, например в функции main:
+
+```
+async function main(): Promise<boolean> {
+  if (...) {
+    return false;
+  }
+
+  await wait(1000);
+
+  return true;
+}
 ```
 
 # Лицензия

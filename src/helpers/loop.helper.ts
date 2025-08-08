@@ -1,21 +1,25 @@
+import { wait } from './wait.helper';
+
 /**
- * Executes a given callback function in a loop until the callback returns false.
+ * Executes a given asynchronous callback function in a loop until callback returns false.
+ * loop can include an optional pause between iterations.
  *
- * @param {function} callback - A function that returns a boolean value.
- *                              The loop will continue as long as this function returns true.
- * @returns {Promise<void>} A promise that resolves when the loop is exited.
- *
- * @example
- * // Example of using the loop function
- * loop(async () => {
- *   const continueLooping = await someAsyncConditionCheck();
- *   return continueLooping; // Loop continues while this is true
- * });
+ * @param {function} callback - An asynchronous function that returns a boolean value.
+ *                              Loop will continue executing as long as this function returns true.
+ * @param {number} [milliseconds=0] - Amount of time to wait between each iteration of loop in milliseconds.
+ *                                      If set to 0, no delay will be applied.
+ * @returns {Promise<void>} A promise that resolves when loop is exited.
  */
-export async function loop(callback: () => Promise<boolean>): Promise<void> {
+export async function loop(
+  callback: () => Promise<boolean>,
+  milliseconds = 0,
+): Promise<void> {
   let infinite = true;
   // eslint-disable-next-line no-constant-condition
   while (infinite) {
     infinite = await callback();
+    if (infinite && milliseconds) {
+      await wait(milliseconds);
+    }
   }
 }
