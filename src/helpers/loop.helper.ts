@@ -11,7 +11,7 @@ import { wait } from './wait.helper';
  * @returns {Promise<void>} A promise that resolves when loop is exited.
  */
 export async function loop(
-  callback: () => Promise<boolean>,
+  callback: () => Promise<boolean> | boolean,
   milliseconds = 0,
 ): Promise<void> {
   let infinite = true;
