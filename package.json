@@ -1,6 +1,6 @@
 {
   "name": "lib-curses",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Simple node.js library for work with console",
   "keywords": [
     "console",
